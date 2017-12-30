@@ -4,10 +4,10 @@ import ErrorPage from "./ErrorPage";
 import AnimeSingleView from "./AnimeSingleView";
 import AnimeList from './AnimeList'
 
-const Main = props => (
+const Main = () => (
     <Switch>
-        <Route exact path="/" component={() => <AnimeList {...props} />} />
-        <Route path="/:animeName" component={AnimeSingleView}  />
+        <Route exact path="/" component={AnimeList} />
+        <Route path="/:animeName" component={AnimeSingleView} />
         <Route component={ErrorPage} />
     </Switch>
 )
