@@ -34,4 +34,13 @@ app.get('/api/animes/:animeName', (req, res) => {
 })
 
 
+app.put('/api/animes/:animeName', (req, res) => {
+	const { sinopsis } = req.body
+   const nombre = req.params.animeName
+   conn.query('UPDATE animes SET sinopsis = ? WHERE nombre = ?', [sinopsis, nombre], (err, results) => {
+		results.changedRows > 0 ? res.json({ sinopsis }) : res.json({error: results.sql})
+   })
+})
+
+
 app.listen(5000, () => console.log('Server listenning on http://localhost:5000'))

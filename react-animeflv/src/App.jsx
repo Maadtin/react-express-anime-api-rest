@@ -1,10 +1,7 @@
 import React from 'react'
 import axios from 'axios'
-import AnimeList from './components/AnimeList'
-import { Route, Switch } from 'react-router-dom'
-import AnimeSingleView from './components/AnimeSingleView'
-import ErrorPage from './components/ErrorPage'
-
+import Main from './components/Main'
+import { Container } from 'semantic-ui-react'
 
 export default class App extends React.Component {
 
@@ -12,6 +9,7 @@ export default class App extends React.Component {
         super(props)
 
         this.state = {
+            isLoading: true,
             animes: []
         }
     }
@@ -19,20 +17,14 @@ export default class App extends React.Component {
 
     componentDidMount() {
         axios.get('/api/animes')
-            .then(res => this.setState({animes: res.data}))
+            .then(res => this.setState({animes: res.data, isLoading: false} ))
     }
 
     render () {
         return (
-            <div className="container mt-5">
-                <div className="row">
-                    <Switch>
-                        <Route exact path="/" component={() => <AnimeList animes={this.state.animes} />} />
-                        <Route path="/:animeName" component={AnimeSingleView}  />
-                        <Route component={ErrorPage} />
-                    </Switch>
-                </div>
-            </div>
+                <Container>
+                    <Main {...this.state} />
+                </Container>
         )
     }
 
